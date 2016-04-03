@@ -97,25 +97,25 @@ def tag(text):
 
 
     found = reg6.findall(text)
-    print reg6.__str__()
+    print reg6.pattern
     print found
     for timex in found:
         timex_found.append(timex)
 
     found = reg7.findall(text)
-    print reg7.__str__()
+    print reg7.pattern
     print found
     for timex in found:
         timex_found.append(timex)
 
     found = reg8.findall(text)
-    print reg8.__str__()
+    print reg8.pattern
     print found
     for timex in found:
         timex_found.append(timex)
 
     found = reg9.findall(text)
-    print reg9.__str__()
+    print reg9.pattern
     print found
     for timex in found:
         timex_found.append(timex)
