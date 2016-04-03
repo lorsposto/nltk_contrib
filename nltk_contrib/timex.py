@@ -60,7 +60,7 @@ ADDITIONS
 reg6 = re.compile(month_day_year_alpha, re.IGNORECASE)
 reg7 = re.compile(month_year_alpha, re.IGNORECASE)
 reg8 = re.compile(mmddyyyy)
-reg9 = re.compile(ddmonthyyyy)
+reg9 = re.compile(ddmonthyyyy, re.IGNORECASE)
 
 def tag(text):
 
