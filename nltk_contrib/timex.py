@@ -45,6 +45,8 @@ month_day_year_alpha = "\b" + month_abbrev + space1plus + "([0-9]{1,2})" + space
 month_year_alpha = "\b" + month_abbrev + space1plus + year
 # mm/dd/yyyy
 mmddyyyy = "([0-9]{1,2})(/|-)([0-9]{1,2})(/|-)([0-9]{4})"
+# dd month yyyy
+ddmonthyyyy = "\b" + "([0-9]{1,2})" + space1plus + month_abbrev + space1plus + "(?:,)" + space1plus + year
 
 reg1 = re.compile(regxp1, re.IGNORECASE)
 reg2 = re.compile(regxp2, re.IGNORECASE)
@@ -58,6 +60,7 @@ ADDITIONS
 reg6 = re.compile(month_day_year_alpha, re.IGNORECASE)
 reg7 = re.compile(month_year_alpha, re.IGNORECASE)
 reg8 = re.compile(mmddyyyy)
+reg9 = re.compile(ddmonthyyyy)
 
 def tag(text):
 
@@ -92,15 +95,28 @@ def tag(text):
     for timex in found:
         timex_found.append(timex)
 
+
     found = reg6.findall(text)
+    print reg6.__str__()
+    print found
     for timex in found:
         timex_found.append(timex)
 
     found = reg7.findall(text)
+    print reg7.__str__()
+    print found
     for timex in found:
         timex_found.append(timex)
-        
+
     found = reg8.findall(text)
+    print reg8.__str__()
+    print found
+    for timex in found:
+        timex_found.append(timex)
+
+    found = reg9.findall(text)
+    print reg9.__str__()
+    print found
     for timex in found:
         timex_found.append(timex)
 
