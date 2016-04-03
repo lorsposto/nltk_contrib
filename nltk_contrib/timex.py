@@ -92,6 +92,18 @@ def tag(text):
     for timex in found:
         timex_found.append(timex)
 
+    found = reg6.findall(text)
+    for timex in found:
+        timex_found.append(timex)
+
+    found = reg7.findall(text)
+    for timex in found:
+        timex_found.append(timex)
+        
+    found = reg8.findall(text)
+    for timex in found:
+        timex_found.append(timex)
+
     # Tag only temporal expressions which haven't been tagged.
     for timex in timex_found:
         text = re.sub(timex + '(?!</TIMEX2>)', '<TIMEX2>' + timex + '</TIMEX2>', text)
