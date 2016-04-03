@@ -38,15 +38,15 @@ ADDITIONS
 '''
 month_abbrev = "(?:jan(?:uary)?|feb(?:uary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sept(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
 
-space1plus = "(?:\s?)+"
+space_or_comma = "(?:(\s|,)?)+"
 # mar(ch) 23(,) 2015
-month_day_year_alpha = "\b" + month_abbrev + space1plus + "([0-9]{1,2})" + space1plus + "(?:,)" + space1plus + year
+month_day_year_alpha = "\b" + month_abbrev + space_or_comma + "([0-9]{1,2})" + space_or_comma + year
 # mar(ch) 2014
-month_year_alpha = "\b" + month_abbrev + space1plus + year
+month_year_alpha = "\b" + month_abbrev + space_or_comma + year
 # mm/dd/yyyy
 mmddyyyy = "([0-9]{1,2})(/|-)([0-9]{1,2})(/|-)([0-9]{4})"
 # dd month yyyy
-ddmonthyyyy = "\b" + "([0-9]{1,2})" + space1plus + month_abbrev + space1plus + "(?:,)" + space1plus + year
+ddmonthyyyy = "\b" + "([0-9]{1,2})" + space_or_comma + month_abbrev + space_or_comma + year
 
 reg1 = re.compile(regxp1, re.IGNORECASE)
 reg2 = re.compile(regxp2, re.IGNORECASE)
