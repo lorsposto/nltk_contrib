@@ -40,13 +40,13 @@ month_abbrev = "(?:jan(?:uary)?|feb(?:uary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?
 
 space_or_comma = "(?:(?:\s|,)?)+"
 # mar(ch) 23(,) 2015
-month_day_year_alpha = "\b" + month_abbrev + space_or_comma + "([0-9]{1,2})" + space_or_comma + year
+month_day_year_alpha = "(" + month_abbrev + space_or_comma + "(?:[0-9]{1,2})" + space_or_comma + "(?:(?<=\s)\d{4}|^\d{4})" + ")"
 # mar(ch) 2014
-month_year_alpha = "\b" + month_abbrev + space_or_comma + year
+month_year_alpha = "(" + month_abbrev + space_or_comma + "(?:(?<=\s)\d{4}|^\d{4})" + ")"
 # mm/dd/yyyy
-mmddyyyy = "([0-9]{1,2})(/|-)([0-9]{1,2})(/|-)([0-9]{4})"
+mmddyyyy = "((?:[0-9]{1,2})(?:/|-)(?:[0-9]{1,2})(?:/|-)(?:[0-9]{4}))"
 # dd month yyyy
-ddmonthyyyy = "\b" + "([0-9]{1,2})" + space_or_comma + month_abbrev + space_or_comma + year
+ddmonthyyyy = "((?:[0-9]{1,2})" + space_or_comma + month_abbrev + space_or_comma + "(?:(?<=\s)\d{4}|^\d{4})" + ")"
 
 reg1 = re.compile(regxp1, re.IGNORECASE)
 reg2 = re.compile(regxp2, re.IGNORECASE)
@@ -63,6 +63,7 @@ reg8 = re.compile(mmddyyyy)
 reg9 = re.compile(ddmonthyyyy, re.IGNORECASE)
 
 def tag(text):
+    print text
 
     # Initialization
     timex_found = []
