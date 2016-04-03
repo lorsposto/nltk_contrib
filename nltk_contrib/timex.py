@@ -38,7 +38,7 @@ ADDITIONS
 '''
 month_abbrev = "(?:jan(?:uary)?|feb(?:uary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sept(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
 
-space_or_comma = "(?:(\s|,)?)+"
+space_or_comma = "(?:(?:\s|,)?)+"
 # mar(ch) 23(,) 2015
 month_day_year_alpha = "\b" + month_abbrev + space_or_comma + "([0-9]{1,2})" + space_or_comma + year
 # mar(ch) 2014
