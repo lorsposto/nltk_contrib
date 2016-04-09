@@ -36,17 +36,20 @@ regxp2 = "(" + exp2 + " (" + dmy + "|" + week_day + "|" + month + "))"
 '''
 ADDITIONS
 '''
-month_abbrev = "(?:jan(?:uary)?|feb(?:uary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sept(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+month_abbrev_named = "(?P<month>jan(?:uary)?|feb(?:uary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sept(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+date_num_named = "((?P<day>[0-9]{1,2}))"
+month_num_named = "((?P<month>[0-9]{1,2}))"
+year_named = "(?P<year>(?<=\s)\d{4}|^\d{4})"
 
 space_or_comma = "(?:(?:\s|,)?)+"
 # mar(ch) 23(,) 2015
-month_day_year_alpha = "(" + month_abbrev + space_or_comma + "(?:[0-9]{1,2})" + space_or_comma + "(?:(?<=\s)\d{4}|^\d{4})" + ")"
+month_day_year_alpha = "(" + month_abbrev_named + space_or_comma + date_num_named + space_or_comma + year_named + ")"
 # mar(ch) 2014
-month_year_alpha = "(" + month_abbrev + space_or_comma + "(?:(?<=\s)\d{4}|^\d{4})" + ")"
+month_year_alpha = "(" + month_abbrev_named + space_or_comma + year_named + ")"
 # mm/dd/yyyy
-mmddyyyy = "((?:[0-9]{1,2})(?:/|-)(?:[0-9]{1,2})(?:/|-)(?:[0-9]{4}))"
+mmddyyyy = "(" + month_num_named + "(?:/|-)" + date_num_named + "(?:/|-)" + year_named + ")"
 # dd month yyyy
-ddmonthyyyy = "((?:[0-9]{1,2})" + space_or_comma + month_abbrev + space_or_comma + "(?:(?<=\s)\d{4}|^\d{4})" + ")"
+ddmonthyyyy = "(" + date_num_named + space_or_comma + month_abbrev_named + space_or_comma + year_named + ")"
 
 reg1 = re.compile(regxp1, re.IGNORECASE)
 reg2 = re.compile(regxp2, re.IGNORECASE)
@@ -63,7 +66,7 @@ reg8 = re.compile(mmddyyyy)
 reg9 = re.compile(ddmonthyyyy, re.IGNORECASE)
 
 def tag(text):
-    print text
+    # print text
 
     # Initialization
     timex_found = []
@@ -97,33 +100,25 @@ def tag(text):
         timex_found.append(timex)
 
 
-    found = reg6.findall(text)
-    print reg6.pattern
-    print found
+    found = [m.groupdict() for m in reg6.finditer(text)]
     for timex in found:
         timex_found.append(timex)
 
-    found = reg7.findall(text)
-    print reg7.pattern
-    print found
+    found = [m.groupdict() for m in reg7.finditer(text)]
     for timex in found:
         timex_found.append(timex)
 
-    found = reg8.findall(text)
-    print reg8.pattern
-    print found
+    found = [m.groupdict() for m in reg8.finditer(text)]
     for timex in found:
         timex_found.append(timex)
 
-    found = reg9.findall(text)
-    print reg9.pattern
-    print found
+    found = [m.groupdict() for m in reg9.finditer(text)]
     for timex in found:
         timex_found.append(timex)
 
     # Tag only temporal expressions which haven't been tagged.
-    for timex in timex_found:
-        text = re.sub(timex + '(?!</TIMEX2>)', '<TIMEX2>' + timex + '</TIMEX2>', text)
+    # for timex in timex_found:
+    #     text = re.sub(timex + '(?!</TIMEX2>)', '<TIMEX2>' + timex + '</TIMEX2>', text)
 
     return timex_found
 
